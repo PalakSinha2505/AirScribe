@@ -1,0 +1,7 @@
+opencv-python
+numpy
+pyautogui
+PyQt5
+pywin32
+pygetwindow
+mediapipe
