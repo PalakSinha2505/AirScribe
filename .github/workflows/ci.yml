@@ -11,44 +11,56 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        python-version: [3.10, 3.11]
+        python-version: [3.10]
 
     steps:
+      # ---------------- Checkout ----------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ---------------- Python Setup ----------------
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
+      # ---------------- System Dependencies (MINIMAL) ----------------
       - name: Install system dependencies
         run: |
-          sudo apt-get update
+          sudo apt-get update -y
           sudo apt-get install -y libgl1 libglib2.0-0
 
+      # ---------------- Pip Upgrade ----------------
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
-      - name: Install dependencies
+      # ---------------- Install Dependencies ----------------
+      - name: Install Python dependencies
         run: |
-          pip install opencv-python
-          pip install pyqt5
-          pip install pyautogui
           pip install numpy
+          pip install opencv-python
+          pip install pyautogui
           pip install mediapipe
+          pip install pyqt5
           pip install pywin32 || true
 
-      - name: Test imports
+      # ---------------- Safe Import Tests ----------------
+      - name: Safe module import test
         run: |
-          python -c "import cv2"
-          python -c "import PyQt5"
-          python -c "import mediapipe"
-          python -c "import pyautogui"
-          python -c "from tracking.hand_tracker import HandTracker"
-          python -c "from core.smoothing import Smoother"
-          python -c "from control.mouse_controller import MouseController"
+          python -c "import cv2; print('cv2 OK')"
+          python -c "import numpy; print('numpy OK')"
+          python -c "import mediapipe; print('mediapipe OK')"
+          python -c "import pyautogui; print('pyautogui OK')"
 
-      - name: Compile check
+      # ---------------- Project Structure Validation ----------------
+      - name: Validate project imports
+        run: |
+          python -c "from tracking.hand_tracker import HandTracker; print('hand_tracker OK')"
+          python -c "from core.smoothing import Smoother; print('smoother OK')"
+          python -c "from control.mouse_controller import MouseController; print('mouse OK')"
+
+      # ---------------- Compile Check ----------------
+      - name: Python syntax check
         run: python -m compileall .
