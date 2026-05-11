@@ -21,10 +21,17 @@ class HandTracker:
         return points
 
     def is_pinching(self, landmarks):
+        # Safety check
+        if len(landmarks) < 9:
+            return False, 999
+
         # Thumb tip (4) & index tip (8)
         x1, y1 = landmarks[4]
         x2, y2 = landmarks[8]
 
         distance = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
-        return distance < 60, distance
+        # Normalized pinch threshold 
+        threshold = 50
+
+        return distance < threshold, distance
