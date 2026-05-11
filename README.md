@@ -44,3 +44,96 @@ AirScribe uses computer vision and machine learning-based hand landmark detectio
 ---
 
 ## Project Structure
+AirScribe/
+│
+├── core/
+│ └── smoothing.py
+│
+├── control/
+│ └── mouse_controller.py
+│
+├── tracking/
+│ └── hand_tracker.py
+│
+├── main.py
+├── requirements.txt
+└── README.md
+
+
+---
+
+## Setup Instructions
+
+### 1. Prerequisites
+
+Ensure you have the following installed:
+- Python 3.10 or above
+- A working webcam
+
+---
+
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/AirScribe.git
+cd AirScribe
+```
+---
+### 3. Create Virtual Environment
+```bash
+python -m venv venv
+```
+Activate it
+---
+### 4. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+---
+### 5. Run the file
+```bash
+python main.py
+```
+Make sure your webcam is enabled before running the application.
+
+---
+
+## How it Works
+- Webcam captures live video stream
+- MediaPipe detects hand landmarks in real time
+- Hand tracking module processes finger positions
+- Gesture recognition logic interprets movement patterns
+- Mouse controller maps gestures to system cursor actions
+- Smoothing module ensures stable cursor movement
+---
+## Contribution Guidelines
+
+Contributions are welcome and encouraged.
+
+Steps to Contribute:
+### 1. Fork the repository
+### 2. Create a new branch:
+```bash
+git checkout -b feature-name
+```
+### 3. Make your changes and ensure code quality
+### 4. Commit your changes:
+```bash
+git commit -m "Add meaningful message"
+```
+### 5. Push to your branch:
+```bash
+git push origin feature-name
+```
+### 6. Open a Pull Request
+---
+## License
+
+This project is licensed under the MIT License.
+You are free to use, modify, and distribute this project with proper attribution.
+
+---
+## Author
+Palak Sinha
+
+
